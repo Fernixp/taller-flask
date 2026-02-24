@@ -16,7 +16,9 @@ def index():
 @app.route('/html')
 def html():
     return render_template('index.html')
-
+@app.route('/about')
+def about():
+    return render_template('about.html')
 @app.route('/saludo')
 def saludo():
     return 'Hola bienvenido a Taller Apps'
