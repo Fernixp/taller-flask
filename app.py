@@ -2,7 +2,6 @@ from flask import Flask, jsonify, render_template
 
 app = Flask(__name__)
 
-@app.route('/')
 @app.route('/status')
 def index():
     data = {
@@ -13,9 +12,9 @@ def index():
     }
     return jsonify(data)
 
-@app.route('/html')
+@app.route('/')
 def html():
-    return render_template('index.html')
+    return render_template('index.html', subtitulo='Panel dinámico sincronizado')
 @app.route('/about')
 def about():
     return render_template('about.html')

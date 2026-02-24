@@ -1,131 +1,40 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Panel | Taller Apps</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: { primary: '#6366f1' }
-                }
-            }
-        }
+{% extends "base.html" %}
 
-        function applyTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-        applyTheme();
-    </script>
-</head>
-<body class="bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+{% block title %}Inicio | Taller Apps{% endblock %}
 
-    <div class="fixed top-6 right-6 z-50">
-        <button onclick="toggleTheme()" class="group flex items-center gap-2 p-2 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl hover:scale-105 transition-all">
-            <div class="p-2 bg-indigo-50 dark:bg-slate-700 rounded-xl text-indigo-600 dark:text-yellow-400">
-                <iconify-icon id="theme-icon" icon="solar:sun-2-bold-duotone" class="text-2xl"></iconify-icon>
-            </div>
-            <span class="pr-3 text-sm font-bold text-slate-700 dark:text-slate-200">Tema</span>
-        </button>
+{% block contenido %}
+<header class="relative text-center mb-12">
+    <div class="inline-flex items-center px-4 py-2 rounded-xl bg-primary/10 text-primary mb-6 border border-primary/20">
+        <iconify-icon icon="solar:cpu-bolt-bold-duotone" class="text-xl mr-2"></iconify-icon>
+        <span class="text-[10px] font-black uppercase tracking-widest">Control Panel</span>
     </div>
+    <h1 class="text-5xl font-black text-slate-900 dark:text-white mb-4">
+        Taller <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Apps</span>
+    </h1>
+    <p class="text-slate-500 dark:text-slate-400 font-medium">{{ subtitulo }}</p>
+</header>
 
-    <div class="min-h-screen flex items-center justify-center p-6">
-        <div class="max-w-2xl w-full">
-            <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 md:p-16 shadow-2xl border border-slate-100 dark:border-slate-800 relative overflow-hidden">
-                
-                <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
-                <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-purple-500/10 rounded-full blur-3xl"></div>
-
-                <header class="relative text-center mb-12">
-                    <div class="inline-flex items-center px-4 py-2 rounded-xl bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 mb-6 border border-indigo-100 dark:border-indigo-500/20">
-                        <iconify-icon icon="solar:bolt-circle-bold-duotone" class="text-xl mr-2"></iconify-icon>
-                        <span class="text-xs font-black uppercase tracking-widest text-[10px]">Flask Framework</span>
-                    </div>
-                    <h1 class="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
-                        Taller <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Apps</span>
-                    </h1>
-                    <p class="text-slate-500 dark:text-slate-400 font-medium italic">"Backend robusto, interfaz elegante"</p>
-                </header>
-
-                <div class="grid grid-cols-1 gap-5 relative">
-                    
-                    <a href="/status" class="flex items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-transparent hover:border-emerald-500/50 hover:bg-white dark:hover:bg-slate-800 transition-all group shadow-sm hover:shadow-md">
-                        <div class="w-16 h-16 flex items-center justify-center bg-emerald-100 dark:bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 rounded-2xl group-hover:scale-110 transition-transform">
-                            <iconify-icon icon="solar:server-square-bold-duotone" class="text-4xl"></iconify-icon>
-                        </div>
-                        <div class="ml-5 text-left">
-                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">API Status</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Verificar estado del servidor JSON</p>
-                        </div>
-                        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 group-hover:text-emerald-500 transition-all"></iconify-icon>
-                    </a>
-
-                    <a href="/about" class="flex items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all group shadow-sm hover:shadow-md">
-                        <div class="w-16 h-16 flex items-center justify-center bg-indigo-100 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 rounded-2xl group-hover:scale-110 transition-transform">
-                            <iconify-icon icon="solar:users-group-two-rounded-bold-duotone" class="text-4xl"></iconify-icon>
-                        </div>
-                        <div class="ml-5 text-left">
-                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">Sobre Nosotros</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Conoce al equipo y los Robo-Kittens</p>
-                        </div>
-                        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 group-hover:text-primary transition-all"></iconify-icon>
-                    </a>
-
-                    <a href="/saludo" class="flex items-center p-5 bg-slate-50 dark:bg-slate-800/40 rounded-[2rem] border border-transparent hover:border-orange-500/50 hover:bg-white dark:hover:bg-slate-800 transition-all group shadow-sm hover:shadow-md">
-                        <div class="w-16 h-16 flex items-center justify-center bg-orange-100 dark:bg-orange-500/20 text-orange-600 dark:text-orange-400 rounded-2xl group-hover:scale-110 transition-transform">
-                            <iconify-icon icon="solar:chat-line-bold-duotone" class="text-4xl"></iconify-icon>
-                        </div>
-                        <div class="ml-5 text-left">
-                            <h3 class="font-bold text-slate-800 dark:text-slate-100 text-lg">Saludo Simple</h3>
-                            <p class="text-xs text-slate-500 dark:text-slate-400">Prueba de respuesta de texto plano</p>
-                        </div>
-                        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 group-hover:text-orange-500 transition-all"></iconify-icon>
-                    </a>
-                </div>
-
-                <footer class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
-                    <div class="flex gap-3">
-                        <iconify-icon icon="logos:python" class="text-2xl hover:scale-110 transition-transform"></iconify-icon>
-                        <iconify-icon icon="logos:flask" class="text-2xl dark:invert hover:scale-110 transition-transform"></iconify-icon>
-                        <iconify-icon icon="logos:tailwindcss-icon" class="text-2xl hover:scale-110 transition-transform"></iconify-icon>
-                    </div>
-                    <div class="text-right">
-                        <span class="block text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">v1.0.4 Stable</span>
-                        <span class="text-[8px] text-primary font-bold">© 2026 Taller de Apps</span>
-                    </div>
-                </footer>
-            </div>
+<div class="grid grid-cols-1 gap-4 relative">
+    <a href="/status" class="flex items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-transparent hover:border-emerald-500/50 transition-all group">
+        <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 rounded-xl text-emerald-500">
+            <iconify-icon icon="solar:server-square-bold-duotone" class="text-3xl"></iconify-icon>
         </div>
-    </div>
+        <div class="ml-4 text-left">
+            <h3 class="font-bold text-slate-800 dark:text-slate-100">API Status</h3>
+            <p class="text-xs text-slate-500">Verificar servicios</p>
+        </div>
+        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 transition-transform"></iconify-icon>
+    </a>
 
-    <script>
-        function toggleTheme() {
-            const html = document.documentElement;
-            const icon = document.getElementById('theme-icon');
-            if (html.classList.contains('dark')) {
-                html.classList.remove('dark');
-                localStorage.theme = 'light';
-                icon.setAttribute('icon', 'solar:sun-2-bold-duotone');
-            } else {
-                html.classList.add('dark');
-                localStorage.theme = 'dark';
-                icon.setAttribute('icon', 'solar:moon-stars-bold-duotone');
-            }
-        }
-        window.onload = () => {
-            const icon = document.getElementById('theme-icon');
-            if (document.documentElement.classList.contains('dark')) {
-                icon.setAttribute('icon', 'solar:moon-stars-bold-duotone');
-            }
-        };
-    </script>
-</body>
-</html>
+    <a href="/about" class="flex items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-transparent hover:border-primary/50 transition-all group">
+        <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 rounded-xl text-primary">
+            <iconify-icon icon="solar:users-group-two-rounded-bold-duotone" class="text-3xl"></iconify-icon>
+        </div>
+        <div class="ml-4 text-left">
+            <h3 class="font-bold text-slate-800 dark:text-slate-100">Sobre Nosotros</h3>
+            <p class="text-xs text-slate-500">Conoce al equipo</p>
+        </div>
+        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 transition-transform"></iconify-icon>
+    </a>
+</div>
+{% endblock %}
