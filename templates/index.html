@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel | Taller Apps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#6366f1' }
+                }
+            }
+        }
+
+        // --- Lógica de detección de Sistema ---
+        function applyTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+        applyTheme(); // Ejecutar de inmediato
+    </script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 transition-colors duration-500">
+
+    <div class="fixed top-6 right-6 z-50">
+        <button onclick="toggleTheme()" class="group flex items-center gap-2 p-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md border border-slate-200 dark:border-slate-700 rounded-2xl shadow-xl hover:scale-105 transition-all">
+            <div class="p-2 bg-slate-100 dark:bg-slate-700 rounded-xl text-slate-600 dark:text-yellow-400">
+                <iconify-icon id="theme-icon" icon="solar:sun-fog-bold-duotone" class="text-2xl"></iconify-icon>
+            </div>
+            <span class="pr-3 text-sm font-bold text-slate-700 dark:text-slate-200">Tema</span>
+        </button>
+    </div>
+
+    <div class="min-h-screen flex items-center justify-center p-6">
+        <div class="max-w-2xl w-full">
+            <div class="bg-white dark:bg-slate-900 rounded-[2.5rem] p-10 md:p-16 shadow-2xl border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                
+                <div class="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 rounded-full blur-3xl"></div>
+
+                <header class="relative text-center mb-12">
+                    <div class="inline-flex items-center px-4 py-2 rounded-xl bg-primary/10 text-primary dark:text-primary-400 mb-6 border border-primary/20">
+                        <iconify-icon icon="solar:cpu-bolt-bold-duotone" class="text-xl mr-2"></iconify-icon>
+                        <span class="text-xs font-black uppercase tracking-widest">Flask Framework</span>
+                    </div>
+                    <h1 class="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-4">
+                        Taller <span class="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">Apps</span>
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 font-medium">Panel de control dinámico sincronizado con tu sistema.</p>
+                </header>
+
+                <div class="grid grid-cols-1 gap-4 relative">
+                    <a href="/status" class="flex items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all group">
+                        <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 rounded-xl shadow-sm group-hover:text-primary transition-colors">
+                            <iconify-icon icon="solar:settings-bold-duotone" class="text-3xl"></iconify-icon>
+                        </div>
+                        <div class="ml-4 text-left">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">API Status</h3>
+                            <p class="text-xs text-slate-500">Verificar servicios en tiempo real</p>
+                        </div>
+                        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </a>
+
+                    <a href="/saludo" class="flex items-center p-4 bg-slate-50 dark:bg-slate-800/50 rounded-2xl border border-transparent hover:border-primary/50 hover:bg-white dark:hover:bg-slate-800 transition-all group">
+                        <div class="w-14 h-14 flex items-center justify-center bg-white dark:bg-slate-900 rounded-xl shadow-sm group-hover:text-primary transition-colors">
+                            <iconify-icon icon="solar:chat-square-call-bold-duotone" class="text-3xl"></iconify-icon>
+                        </div>
+                        <div class="ml-4 text-left">
+                            <h3 class="font-bold text-slate-800 dark:text-slate-100">Saludo Simple</h3>
+                            <p class="text-xs text-slate-500">Prueba de respuesta de texto</p>
+                        </div>
+                        <iconify-icon icon="solar:alt-arrow-right-bold-duotone" class="ml-auto text-slate-300 group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </a>
+                </div>
+
+                <footer class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                    <div class="flex gap-2">
+                        <iconify-icon icon="logos:python" class="text-xl"></iconify-icon>
+                        <iconify-icon icon="logos:flask" class="text-xl dark:invert"></iconify-icon>
+                    </div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em]">v1.0.2 Stable</span>
+                </footer>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                icon.setAttribute('icon', 'solar:sun-fog-bold-duotone');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                icon.setAttribute('icon', 'solar:moon-stars-bold-duotone');
+            }
+        }
+
+        // Ajustar icono inicial
+        window.onload = () => {
+            const icon = document.getElementById('theme-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.setAttribute('icon', 'solar:moon-stars-bold-duotone');
+            }
+        };
+    </script>
+</body>
+</html>
