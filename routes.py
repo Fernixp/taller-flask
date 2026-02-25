@@ -1,13 +1,38 @@
-from flask import jsonify, render_template
+from flask import jsonify, render_template, redirect, url_for, flash
 from app import app
 from extension import db
 import formularios
 from models import Tarea
 
-@app.route('/')
-def html():
-    return render_template('index.html', subtitulo='Panel dinámico sincronizado')
 
+@app.route('/')
+def index():
+    """ Ruta principal que muestra el listado y el formulario """
+    form = formularios.FormAgregarTareas()
+    # Obtenemos todas las tareas de la base de datos para la tabla
+    tareas_listado = Tarea.query.all()
+    return render_template('index.html', 
+                           subtitulo='Gestión de Tareas', 
+                           form=form, 
+                           tareas=tareas_listado)
+
+@app.route('/tareas/crear', methods=['POST'])
+def crear_tarea():
+    """ Ruta desacoplada para procesar la creación de tareas """
+    form = formularios.FormAgregarTareas()
+    if form.validate_on_submit():
+        nueva_tarea = Tarea(titulo=form.titulo.data)
+        db.session.add(nueva_tarea)
+        db.session.commit()
+        # Redirigimos a la página principal tras guardar
+        return redirect(url_for('index'))
+    
+    # En caso de error de validación, volvemos a cargar la vista principal
+    tareas_listado = Tarea.query.all()
+    return render_template('index.html', 
+                           subtitulo='Gestión de Tareas', 
+                           form=form, 
+                           tareas=tareas_listado)
 @app.route('/status')
 def status():
     data = {
