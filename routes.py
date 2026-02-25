@@ -1,5 +1,8 @@
 from flask import jsonify, render_template
 from app import app
+from extension import db
+import formularios
+from models import Tarea
 
 @app.route('/')
 def html():
@@ -17,7 +20,8 @@ def status():
 
 @app.route('/about')
 def about():
-    return render_template('about.html')
+    formulario = formularios.FormAgregarTareas()
+    return render_template('about.html', form=formulario)
 
 @app.route('/saludo')
 def saludo():
@@ -26,3 +30,17 @@ def saludo():
 @app.route('/usuario/<nombre>')
 def usuario(nombre):
     return f'Hola {nombre} bienvenido a Taller Apps'
+
+""" Ruta para subir formulario a db """
+@app.route('/tareas', methods = ['POST'])
+def tareas():
+        formulario = formularios.FormAgregarTareas()
+        if formulario.validate_on_submit() :
+                nueva_tarea = Tarea (titulo =  formulario.titulo.data)
+                db.session.add(nueva_tarea)
+                db.session.commit()
+                print('se envio correctamente', formulario.titulo.data)
+                return render_template('about.html', 
+                                       form = formulario,
+                                       titulo = formulario.titulo.data)
+        return render_template('about.html', form = formulario)

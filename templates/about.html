@@ -27,5 +27,14 @@
         <h3 class="font-bold text-slate-800 dark:text-slate-100">Fernando</h3>
         <p class="text-[10px] text-primary font-black uppercase tracking-widest mt-1">Estudiante Dev</p>
     </div>
+
+
+    <!-- FORMULARIO -->
+     <form action="/tareas" method="post">
+    {{ form.csrf_token() }}
+    {{ form.titulo.label }}
+    {{ form.titulo }}
+    {{ form.enviar }}
+</form>
 </div>
 {% endblock %}
