@@ -1,18 +1,13 @@
 from flask import Flask
 from extension import db
-import os
-
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost:3306/taller-flask'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
+app.config['SECRET_KEY'] = 'secret1234'
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost:3306/taller-flask"
+# initialize the app with the extension
 db.init_app(app)
-
+from models import Tarea
 with app.app_context():
     db.create_all()
-
 from routes import *
-
 if __name__ == '__main__':
     app.run(debug=True)
